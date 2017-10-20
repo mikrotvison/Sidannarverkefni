@@ -72,5 +72,50 @@ public class Tictactoe
 		return ((index >= 0) && (index < 3));	
 	}
 	
+	// Prints current gameBoard
+	public static void PrintBoard()
+	{
+		for (int i = 0; i < SIZE; i++)
+		{
+			for (int j = 0; j < SIZE; j++)
+			{
+				PrintSlot(gameBoard[i][j]);
+				System.out.print("|");
+				
+							
+			}
+			System.out.println();
+			System.out.println("------");
+		}
+	}
+	
+	// Prints slot value
+	private static void PrintSlot(int slot)
+	{
+		if (slot == NONE)
+		{
+			System.out.print(" ");
+		}
+		else if (slot == O)
+		{
+			System.out.print("O");
+		}
+		else if (slot == X)
+		{
+			System.out.print("X");
+		}
+	}
+
+
+	public static void main(String[] args)
+	{
+		Tictactoe t = new Tictactoe();
+		t.InitializeGame();
+		t.PlayerTurn(X, 1, 1);
+		t.PlayerTurn(O, 1, 2);
+		t.PrintBoard();
+		
+	}
+	
 }
 
