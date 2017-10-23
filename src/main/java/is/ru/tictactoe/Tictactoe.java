@@ -48,14 +48,6 @@ public class Tictactoe
 		boolean inputTest = false; 
 		do
 		{
-			/*if (player == O)
-			{
-				System.out.println("Player O has next turn, write available row and column values [1-3]:");
-			}
-			else if (player == X)
-			{
-				System.out.println("Player X has next turn, write available row and column values [1-3]:");
-			}*/
 			if (ValidateIndex(row) && ValidateIndex(col) && gameBoard[row][col] == NONE)
 			{
 				inputTest = true; 		// Input is valid
@@ -127,7 +119,25 @@ public class Tictactoe
                         won = true;                             // Game won on current row
                 }
 		return won;
-	}	
+	}
+
+	// Test if game is Draw
+	public static boolean Draw()
+	{
+		boolean draw = true;
+		for (int i = 0; i < SIZE; i++)
+		{
+			for (int j = 0; j < SIZE; j++)
+			{
+				if(gameBoard[i][j]==NONE)
+				{
+					draw = false;
+				}				
+			}
+		}
+		return draw;
+	}
+
 
 	
 }

@@ -99,6 +99,37 @@ public class TictactoeTest
                 t.PlayerTurn(t.X, 1, 2);
                 t.PlayerTurn(t.O, 0, 0);                // Game has not been won
                 assertEquals(false, t.GameWon(t.O, 0, 0));
+        }	
+        // Testing when game has ended in draw
+        @Test
+        public void TestGameIsDraw()
+        {
+                Tictactoe t = new Tictactoe();
+                t.InitializeGame();                     // Initialize the game
+                t.PlayerTurn(t.O, 0, 0);
+                t.PlayerTurn(t.X, 0, 1);
+                t.PlayerTurn(t.O, 0, 2);
+                t.PlayerTurn(t.O, 1, 0);
+                t.PlayerTurn(t.X, 1, 1);
+                t.PlayerTurn(t.O, 1, 2);                 
+                t.PlayerTurn(t.X, 2, 0);
+                t.PlayerTurn(t.O, 2, 1);  
+                t.PlayerTurn(t.X, 2, 2);   				// Game has ended in draw  
+                assertEquals(true, t.Draw());
         }
 
+        // Testing when game has not ended in draw
+        @Test
+        public void TestGameIsNotDraw()
+        {
+                Tictactoe t = new Tictactoe();
+                t.InitializeGame();                     // Initialize the game
+                t.PlayerTurn(t.O, 0, 0);
+                t.PlayerTurn(t.X, 0, 1);
+                t.PlayerTurn(t.O, 0, 2);
+                t.PlayerTurn(t.O, 1, 0);
+                t.PlayerTurn(t.X, 1, 1);
+                t.PlayerTurn(t.O, 1, 2);                 // Game has not ended in draw  
+                assertEquals(false, t.Draw());
+        }		
 }
