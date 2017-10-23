@@ -3,7 +3,7 @@ package is.ru.tictactoe;
 import java.util.Scanner;
 public class Tictactoe 
 {
-	public static Scanner reader = new Scanner(System.in); 		// To read input streams from user
+	public static Scanner sc = new Scanner(System.in); 		// To read input streams from user
 	// Constants for slot status in game
 	public static final int NONE = 0;
 	public static final int X = 1;
@@ -45,31 +45,25 @@ public class Tictactoe
 	// Player's X or O turn, make him play
 	public static void PlayerTurn(int player, int row, int col)
 	{
-		boolean inputTest = false; 
-		do
-		{
-			if (player == O)
-			{
-				System.out.println("Player O has next turn, write available row and column values [1-3]:");
-			}
-			else if (player == X)
-			{
-				System.out.println("Player X has next turn, write available row and column values [1-3]:");
-			}
-			if (ValidateIndex(row) && ValidateIndex(col) && gameBoard[row][col] == NONE)
-			{
-				inputTest = true; 		// Input is valid
-				currRow = row;
-				currCol = col;
-				gameBoard[currRow][currCol] = player;					
-			}
-		} while (!inputTest);				// Ask for slot until input is valid
+		// Indicies have been validated before call to this function	
+		currRow = row;
+		currCol = col;
+		gameBoard[currRow][currCol] = player;					
 	}
 		
-	// Returns true if index is in gameBoard range
-	private static boolean ValidateIndex(int index)
+	// Returns true if indicies are in gameBoard range and slot is available
+	public static boolean ValidateIndicies(int row, int col)
 	{
-		return ((index >= 0) && (index < 3));	
+		boolean test = false;
+		if((row >= 0) && (row < 3) && (col >= 0) && (col < 3) && gameBoard[row][col] == NONE)
+		{
+			test = true;
+		}
+		if (test == false)
+		{
+			System.out.println("Invalid input, try again!");
+		}
+		return test;
 	}
 	
 	// Prints current gameBoard
@@ -105,6 +99,67 @@ public class Tictactoe
 			System.out.print("X");
 		}
 	}
+	
+	// Returns true if game has been won by incoming player
+	public static boolean GameWon(int player, int row, int col)
+	{
+		boolean won = false;
+		if ((currRow == currCol) && (player == gameBoard[0][0]) && (player == gameBoard[1][1]) && (player == gameBoard[2][2]))
+		{
+			won = true;				// Game won on the diogonal line					
+		}
+		else if ((currRow + currCol == 2) && (player == gameBoard[2][0]) && (player == gameBoard[1][1]) && (player == gameBoard[0][2]))
+		{
+			won = true;				// Game won on the reverse diagonal line
+		}
+		else if ((player == gameBoard[0][currCol]) && (player == gameBoard[1][currCol]) && (player == gameBoard[2][currCol]))
+                {
+                        won = true;                             // Game won on current column
+                }
+		else if ((player == gameBoard[currRow][0]) && (player == gameBoard[currRow][1]) && (player == gameBoard[currRow][2]))
+                {
+                        won = true;                             // Game won on current row
+                }
+		return won;
+	}
+
+	// Test if game is Draw
+	public static boolean Draw()
+	{
+		boolean draw = true;
+		for (int i = 0; i < SIZE; i++)
+		{
+			for (int j = 0; j < SIZE; j++)
+			{
+				if(gameBoard[i][j]==NONE)
+				{
+					draw = false;
+				}				
+			}
+		}
+		return draw;
+	}
+
+	// Update game
+	public static void UpdateGame(int player, int row, int col)
+	{
+		if (Draw())
+		{
+			currStatus = DRAW;									// Game has ended in draw
+		}
+		else if (GameWon(player, row, col))
+		{
+			if (player == X)
+			{
+				currStatus = XWON;
+			}
+			else if (player == O)
+			{
+				currStatus = OWON;
+			}
+		}
+	}
+
 
 	
 }
