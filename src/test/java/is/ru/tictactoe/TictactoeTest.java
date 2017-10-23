@@ -4,11 +4,12 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 
 public class TictactoeTest {
+	// Test game initialation
 	@Test
-	public void TestInitializationBoard()
+	public void TestInitialization()
 	{
 		Tictactoe t = new Tictactoe();
-		t.InitializeBoard();
+		t.InitializeGame();
 		
 		for (int i = 0; i < t.SIZE; i++)
                 {
@@ -18,5 +19,25 @@ public class TictactoeTest {
                         }
                 }
 	}
+	
+	// Test player move
+	@Test
+	public void TestXPlayerTurn()
+	{
+		Tictactoe t = new Tictactoe();
+		t.InitializeGame();			// Initialize the game
+		t.PlayerTurn(t.X, 2, 2);		// Set slot (2,2) as X
+		assertEquals(t.X, t.gameBoard[2][2]);	
+							
+	}
 
+	// Test another player move
+        @Test
+        public void TestOPlayerTurn()
+        {
+                Tictactoe t = new Tictactoe();
+                t.InitializeGame();                     // Initialize the game
+		t.PlayerTurn(t.O, 1, 2);
+                assertEquals(t.O, t.gameBoard[1][2]);
+        }
 }
