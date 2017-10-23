@@ -2,7 +2,7 @@
 apply plugin: 'java-library'
 apply plugin: 'application'
 
-mainClassName = "is.ru.tictactoe.Tictactoe"
+mainClassName = "is.ru.tictactoe.ConsoleApp"
 
 repositories {
 	jcenter()
@@ -11,4 +11,8 @@ repositories {
 dependencies {
     testImplementation 'junit:junit:4.12'
 	
+}
+
+run {
+    standardInput = System.in
 }

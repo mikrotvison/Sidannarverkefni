@@ -106,16 +106,6 @@ public class Tictactoe
 		}
 	}
 
-
-	public static void main(String[] args)
-	{
-		Tictactoe t = new Tictactoe();
-		t.InitializeGame();
-		t.PlayerTurn(X, 1, 1);
-		t.PlayerTurn(O, 1, 2);
-		t.PrintBoard();
-		
-	}
 	
 }
 
