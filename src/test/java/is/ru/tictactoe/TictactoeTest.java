@@ -41,4 +41,64 @@ public class TictactoeTest
 		t.PlayerTurn(t.O, 1, 2);
                 assertEquals(t.O, t.gameBoard[1][2]);
         }
+	
+	// Testing when game is won on diagonal line
+	@Test
+        public void TestWinDiagonalLine()
+        {
+                Tictactoe t = new Tictactoe();
+                t.InitializeGame();                     // Initialize the game
+                t.PlayerTurn(t.O, 0, 0);
+		t.PlayerTurn(t.O, 1, 1);
+		t.PlayerTurn(t.O, 2, 2);		// Now the game has been won by player O
+                assertEquals(true, t.GameWon(t.O, 2, 2));
+        }
+
+	// Testing when game is won on reverse diagonal line
+        @Test
+        public void TestWinReverseDiagonalLine()
+        {
+                Tictactoe t = new Tictactoe();
+                t.InitializeGame();                     // Initialize the game
+                t.PlayerTurn(t.X, 0, 2);
+                t.PlayerTurn(t.X, 2, 0);
+                t.PlayerTurn(t.X, 1, 1);                // Now the game has been won by player X
+                assertEquals(true, t.GameWon(t.X, 1, 1));
+        }		
+
+        // Testing when game is won on column
+        @Test
+        public void TestWinOnColumn()
+        {
+                Tictactoe t = new Tictactoe();
+                t.InitializeGame();                     // Initialize the game
+                t.PlayerTurn(t.X, 0, 0);
+                t.PlayerTurn(t.X, 0, 1);
+                t.PlayerTurn(t.X, 0, 2);                // Now the game has been won by player X
+                assertEquals(true, t.GameWon(t.X, 0, 2));
+        }
+	
+	// Testing when game is won on line
+        @Test
+        public void TestWinOnLine()
+        {
+                Tictactoe t = new Tictactoe();
+                t.InitializeGame();                     // Initialize the game
+                t.PlayerTurn(t.O, 1, 0);
+                t.PlayerTurn(t.O, 1, 2);
+                t.PlayerTurn(t.O, 1, 1);                // Now the game has been won by player O
+                assertEquals(true, t.GameWon(t.O, 1, 1));
+        }
+        // Testing when game has not been won
+        @Test
+        public void TestGameNotWon()
+        {
+                Tictactoe t = new Tictactoe();
+                t.InitializeGame();                     // Initialize the game
+                t.PlayerTurn(t.O, 1, 0);
+                t.PlayerTurn(t.X, 1, 2);
+                t.PlayerTurn(t.O, 0, 0);                // Game has not been won
+                assertEquals(false, t.GameWon(t.O, 0, 0));
+        }
+
 }

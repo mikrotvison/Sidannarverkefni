@@ -48,14 +48,14 @@ public class Tictactoe
 		boolean inputTest = false; 
 		do
 		{
-			if (player == O)
+			/*if (player == O)
 			{
 				System.out.println("Player O has next turn, write available row and column values [1-3]:");
 			}
 			else if (player == X)
 			{
 				System.out.println("Player X has next turn, write available row and column values [1-3]:");
-			}
+			}*/
 			if (ValidateIndex(row) && ValidateIndex(col) && gameBoard[row][col] == NONE)
 			{
 				inputTest = true; 		// Input is valid
@@ -105,6 +105,29 @@ public class Tictactoe
 			System.out.print("X");
 		}
 	}
+	
+	// Returns true if game has been won by incoming player
+	public static boolean GameWon(int player, int row, int col)
+	{
+		boolean won = false;
+		if ((currRow == currCol) && (player == gameBoard[0][0]) && (player == gameBoard[1][1]) && (player == gameBoard[2][2]))
+		{
+			won = true;				// Game won on the diogonal line					
+		}
+		else if ((currRow + currCol == 2) && (player == gameBoard[2][0]) && (player == gameBoard[1][1]) && (player == gameBoard[0][2]))
+		{
+			won = true;				// Game won on the reverse diagonal line
+		}
+		else if ((player == gameBoard[0][currCol]) && (player == gameBoard[1][currCol]) && (player == gameBoard[2][currCol]))
+                {
+                        won = true;                             // Game won on current column
+                }
+		else if ((player == gameBoard[currRow][0]) && (player == gameBoard[currRow][1]) && (player == gameBoard[currRow][2]))
+                {
+                        won = true;                             // Game won on current row
+                }
+		return won;
+	}	
 
 	
 }

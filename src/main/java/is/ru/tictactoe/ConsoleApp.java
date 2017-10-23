@@ -15,6 +15,14 @@ public class ConsoleApp
 		int counter = 0; 
 		do 
 		{
+			if (t.currPlayer == t.O)
+                        {
+                                System.out.println("Player O has next turn, write available row and column values [1-3]:");
+                        }
+                        else if (t.currPlayer == t.X)
+                        {
+                                System.out.println("Player X has next turn, write available row and column values [1-3]:");
+                        }
 			int row = sc.nextInt();
 			int col = sc.nextInt();		
 			t.PlayerTurn(t.currPlayer, row, col);
