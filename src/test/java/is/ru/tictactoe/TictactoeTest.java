@@ -3,7 +3,8 @@ package is.ru.tictactoe;
 import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 
-public class TictactoeTest {
+public class TictactoeTest 
+{
 	// Test game initialation
 	@Test
 	public void TestInitialization()
