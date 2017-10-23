@@ -3,7 +3,7 @@ package is.ru.tictactoe;
 import java.util.Scanner;
 public class Tictactoe 
 {
-	public static Scanner reader = new Scanner(System.in); 		// To read input streams from user
+	public static Scanner sc = new Scanner(System.in); 		// To read input streams from user
 	// Constants for slot status in game
 	public static final int NONE = 0;
 	public static final int X = 1;
@@ -45,23 +45,25 @@ public class Tictactoe
 	// Player's X or O turn, make him play
 	public static void PlayerTurn(int player, int row, int col)
 	{
-		boolean inputTest = false; 
-		do
-		{
-			if (ValidateIndex(row) && ValidateIndex(col) && gameBoard[row][col] == NONE)
-			{
-				inputTest = true; 		// Input is valid
-				currRow = row;
-				currCol = col;
-				gameBoard[currRow][currCol] = player;					
-			}
-		} while (!inputTest);				// Ask for slot until input is valid
+		// Indicies have been validated before call to this function	
+		currRow = row;
+		currCol = col;
+		gameBoard[currRow][currCol] = player;					
 	}
 		
-	// Returns true if index is in gameBoard range
-	private static boolean ValidateIndex(int index)
+	// Returns true if indicies are in gameBoard range and slot is available
+	public static boolean ValidateIndicies(int row, int col)
 	{
-		return ((index >= 0) && (index < 3));	
+		boolean test = false;
+		if((row >= 0) && (row < 3) && (col >= 0) && (col < 3) && gameBoard[row][col] == NONE)
+		{
+			test = true;
+		}
+		if (test == false)
+		{
+			System.out.println("Invalid input, try again!");
+		}
+		return test;
 	}
 	
 	// Prints current gameBoard

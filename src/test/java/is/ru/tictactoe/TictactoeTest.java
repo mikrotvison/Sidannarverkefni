@@ -149,5 +149,13 @@ public class TictactoeTest
                 assertEquals(t.OWON, t.currStatus);
         }
 
+        // Testing ValidateIndicies function
+        @Test
+        public void TestValidateIndicies()
+        {
+                Tictactoe t = new Tictactoe();                   
+                assertEquals(false, t.ValidateIndicies(3,3));
+        }
+
 
 }
