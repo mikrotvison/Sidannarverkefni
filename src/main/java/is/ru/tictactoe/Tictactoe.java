@@ -138,6 +138,26 @@ public class Tictactoe
 		return draw;
 	}
 
+	// Update game
+	public static void UpdateGame(int player, int row, int col)
+	{
+		if (Draw())
+		{
+			currStatus = DRAW;									// Game has ended in draw
+		}
+		else if (GameWon(player, row, col))
+		{
+			if (player == X)
+			{
+				currStatus = XWON;
+			}
+			else if (player == O)
+			{
+				currStatus = OWON;
+			}
+		}
+	}
+
 
 	
 }

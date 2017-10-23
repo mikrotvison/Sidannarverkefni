@@ -78,7 +78,7 @@ public class TictactoeTest
                 assertEquals(true, t.GameWon(t.X, 0, 2));
         }
 	
-	// Testing when game is won on line
+		// Testing when game is won on line
         @Test
         public void TestWinOnLine()
         {
@@ -89,6 +89,7 @@ public class TictactoeTest
                 t.PlayerTurn(t.O, 1, 1);                // Now the game has been won by player O
                 assertEquals(true, t.GameWon(t.O, 1, 1));
         }
+
         // Testing when game has not been won
         @Test
         public void TestGameNotWon()
@@ -99,7 +100,8 @@ public class TictactoeTest
                 t.PlayerTurn(t.X, 1, 2);
                 t.PlayerTurn(t.O, 0, 0);                // Game has not been won
                 assertEquals(false, t.GameWon(t.O, 0, 0));
-        }	
+        }
+
         // Testing when game has ended in draw
         @Test
         public void TestGameIsDraw()
@@ -131,5 +133,21 @@ public class TictactoeTest
                 t.PlayerTurn(t.X, 1, 1);
                 t.PlayerTurn(t.O, 1, 2);                 // Game has not ended in draw  
                 assertEquals(false, t.Draw());
-        }		
+        }
+
+        // Testing UpdateGame function
+        @Test
+        public void TestUpdateGame()
+        {
+                Tictactoe t = new Tictactoe();
+                t.InitializeGame();                     // Initialize the game
+                t.PlayerTurn(t.O, 0, 0);
+                t.PlayerTurn(t.O, 0, 1);
+                t.PlayerTurn(t.O, 0, 2);
+                t.UpdateGame(t.O, 0, 2);				// O has won the game
+
+                assertEquals(t.OWON, t.currStatus);
+        }
+
+
 }
