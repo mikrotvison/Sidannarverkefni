@@ -5,8 +5,7 @@ apply plugin: 'application'
 mainClassName = "is.ru.tictactoe.GameWeb"
 
 repositories {
-	jcenter()
-	maven { url "https://jitpack.io" }
+	mavenCentral()
 }
 
 dependencies {
