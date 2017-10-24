@@ -5,7 +5,7 @@ apply plugin: 'application'
 mainClassName = "is.ru.tictactoe.GameWeb"
 
 repositories {
-	mavenCentral()
+	jcenter()
 }
 
 dependencies {
