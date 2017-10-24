@@ -1,23 +1,20 @@
+repositories {
+    mavenCentral()
+}
 
 apply plugin: 'java'
+//apply plugin: 'jetty'
 apply plugin: 'application'
 
-mainClassName = "is.ru.tictactoe.GameWeb"
+mainClassName = 'is.ru.tictactoe.GameWeb'
+applicationName = 'app'
 
-repositories {
-	jcenter()
-}
+defaultTasks = ['clean', 'jar']
 
 dependencies {
-    compile 'com.sparkjava:spark-core:2.3'
-    testImplementation 'junit:junit:4.12'
-	
+	compile 'com.sparkjava:spark-core:2.1'
+	compile 'com.sparkjava:spark-template-mustache:1.0.0'
+    testCompile group: 'junit', name: 'junit', version: '4.+'
 }
 
-task stage {
-  dependsOn clean, installDist
-}
-
-run {
-    standardInput = System.in
-}
+task stage(dependsOn: ['clean', 'installDist'])
