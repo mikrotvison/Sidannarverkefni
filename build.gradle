@@ -2,15 +2,20 @@
 apply plugin: 'java-library'
 apply plugin: 'application'
 
-mainClassName = "is.ru.tictactoe.ConsoleApp"
+mainClassName = "is.ru.tictactoe.GameWeb"
 
 repositories {
 	jcenter()
 }
 
 dependencies {
+    compile 'com.sparkjava:spark-core:2.3'
     testImplementation 'junit:junit:4.12'
 	
+}
+
+task stage {
+  dependsOn clean, installDist
 }
 
 run {
