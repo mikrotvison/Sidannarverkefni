@@ -1,18 +1,29 @@
 package is.ru.tictactoe;
+
 import static spark.Spark.*;
-import java.util.*;
+
 public class GameWeb {
+    public static void main(String[] args) {
+        port(getHerokuPort());
+        get("/", (req, res) -> {
+            return "No route specified. Try /add/1,2";
+        });
+        get(
+            "/add/:input",
+            (req, res) -> add(req.params(":input"))
+        );
+    }
 
-	public static void main(String[] args) {
-		ProcessBuilder process = new ProcessBuilder();
-     		Integer port;
-     		if (process.environment().get("PORT") != null) {
-         		port = Integer.parseInt(process.environment().get("PORT"));
-		} 		
-		else {
-         		port = 4567;
-     		}
+    static int getHerokuPort() {
+        ProcessBuilder psb = new ProcessBuilder();
+	if (psb.environment().get("PORT") != null) {
+	    return Integer.parseInt(psb.environment().get("PORT"));
+	}
+	return 4567;
+    }
 
-    		setPort(port);
-    	}
+    private static int add(String input) {
+        StringCalculator Calculator = new StringCalculator();
+        return Calculator.add(input);
+    }
 }
