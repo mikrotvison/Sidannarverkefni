@@ -1,8 +1,13 @@
 
 apply plugin: 'java-library'
 apply plugin: 'application'
+apply plugin: 'jacoco'
 
 mainClassName = "is.ru.tictactoe.ConsoleApp"
+
+ext {
+	jacocoVersion = '0.7.5.201505241946'
+}
 
 repositories {
 	jcenter()
@@ -16,3 +21,17 @@ dependencies {
 run {
     standardInput = System.in
 }
+
+jacoco {
+	toolVersion = jacocoVersion;
+}
+
+jacocoTestReport {
+	reports {
+		html.enabled = true;
+		csv.enabled = true;
+		xml.enabled = true;
+	}
+}
+test.finalizedBy jacocoTestReport
+
