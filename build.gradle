@@ -1,25 +1,28 @@
-
 apply plugin: 'java-library'
 apply plugin: 'application'
 apply plugin: 'jacoco'
 
-mainClassName = "is.ru.tictactoe.ConsoleApp"
+mainClassName = "is.ru.tictactoe.GameWeb"
 
 ext {
 	jacocoVersion = '0.7.5.201505241946'
 }
 
 repositories {
-	jcenter()
+    jcenter()
+  
 }
 
 dependencies {
-    testImplementation 'junit:junit:4.12'
-	
+    // Dependencies
+    compile 'com.sparkjava:spark-core:2.6.0'
+    compile "org.slf4j:slf4j-simple:1.7.12"
+    // Test dependencies
+    testCompile 'junit:junit:4.12'
 }
 
-run {
-    standardInput = System.in
+task stage {
+  dependsOn installDist
 }
 
 jacoco {
