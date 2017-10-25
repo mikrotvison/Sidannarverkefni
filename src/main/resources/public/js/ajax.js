@@ -1,12 +1,12 @@
 $(function() {
-  $('#buttonSum').click(function(){
-    var a = $('#a').val();
-    var b = $('#b').val();
+  $('.slot').click(function(){
+    var idVal = $(this).attr('id');		// Get what grid was clicked
+    var id = "#" + idVal;
 
     $.ajax({
-      url: '/api/sum?a=' + a + '&b='+b,
+	url: '/api/game',
       success: function(data) {
-        $('#result').text(data);
+        $(id).text(data);
       }
     });
   });
