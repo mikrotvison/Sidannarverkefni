@@ -1,7 +1,7 @@
 apply plugin: 'java-library'
 apply plugin: 'application'
 apply plugin: 'jacoco'
-
+apply plugin: 'idea'
 mainClassName = "is.ru.tictactoe.GameWeb"
 
 ext {
