@@ -20,6 +20,3 @@ task stage {
   dependsOn installDist
 }
 
-task wrapper(type: Wrapper) {
-    gradleVersion = '4.1'
-}
