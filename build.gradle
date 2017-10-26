@@ -13,12 +13,19 @@ repositories {
   
 }
 
+sourceSets {
+  selenium
+}
+
 dependencies {
     // Dependencies
     compile 'com.sparkjava:spark-core:2.6.0'
     compile "org.slf4j:slf4j-simple:1.7.12"
     // Test dependencies
     testCompile 'junit:junit:4.12'
+
+    seleniumCompile 'junit:junit:4.12'
+    seleniumCompile 'org.seleniumhq.selenium:selenium-java:3.6.0'
 }
 
 task stage {
@@ -36,5 +43,14 @@ jacocoTestReport {
 		xml.enabled = true;
 	}
 }
+
 test.finalizedBy jacocoTestReport
 
+task selenium(type: Test, dependsOn: installDist) {
+  testClassesDir = sourceSets.selenium.output.classesDir
+  classpath = sourceSets.selenium.runtimeClasspath
+
+  doFirst {
+    'build/install/Sidannarverkefni/bin/Sidannarverkefni.bat'.execute()
+  }
+}
