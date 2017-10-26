@@ -11,6 +11,7 @@ public class GameWeb
 		staticFiles.location("/public");
 		Tictactoe game = new Tictactoe();
 		game.InitializeGame();
+		// Get request when player makes move on game board
 		get("/api/game", (req, res) -> 
 		{
             		QueryParamsMap map = req.queryMap();
@@ -26,6 +27,21 @@ public class GameWeb
                 		return "Error: " + e.getMessage();
             		}
         	});
+
+                // Get request when players want to start new game
+                get("/api/refresh", (req, res) ->
+                {
+                        try
+                        {
+				String ret = game.InitializeGame();
+                                return ret;
+
+                        }
+                        catch (Exception e)
+                        {
+                                return "Error: " + e.getMessage();
+                        }
+                });		
       
     	}
 

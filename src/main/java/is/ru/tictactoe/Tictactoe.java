@@ -31,10 +31,11 @@ public class Tictactoe
 	}
 	
 	// Initializes game bord and sets first player as player X	
-	public static void InitializeGame()
+	public static String InitializeGame()
 	{
 		InitializeBoard();
 		currPlayer = PLAYER_X;
+		return "refresh";					// Return value used to restart game in UI
 	}
 	
 	// Inserts player move into board and returns which player was making the move
