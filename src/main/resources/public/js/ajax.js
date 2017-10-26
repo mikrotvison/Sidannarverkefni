@@ -1,12 +1,11 @@
 $(function() {
-  $('.slot').click(function(){
+  $('.box').click(function(){
     var idVal = $(this).attr('id');		// Get what grid was clicked
-    var id = "#" + idVal;
-
+    var content = "." + idVal;
     $.ajax({
 	url: '/api/game',
       success: function(data) {
-        $(id).text(data);
+        $(content).text(data);
       }
     });
   });
