@@ -16,58 +16,52 @@
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 <body>
-	<h2 id="header">Play TicTacToe!</h2>
-	<div class="container">
+	<div class="row">
+		<div class="site-header col-xs-4">
+			<a id="new-game" class="btn btn-success" href="/api/refresh">New game!</a>	
+		</div>
+                <div class="site-header col-xs-4">
+			<h2 id="header">Play TicTacToe!</h2>
+                </div>
+                <div class="site-header col-xs-4">
+
+                </div>
+
+	</div>
+	<div class="container game-board">
 		<div class="row">
-			<div class="">
-				<div id="one" class="slot col-xs-4"></div>
+			<div id="1" class="col-xs-4 box">
+				<div class="slot 1"></div>
 			</div>
-			<div class="">
-                                <div id="two" class="slot col-xs-4"></div>
+			<div id="2" class="col-xs-4 box">
+                                <div class="slot 2"></div>
                         </div>
-			<div class="">
-                                <div id="three" class="slot col-xs-4"></div>
+			<div id="3" class="col-xs-4 box">
+                                <div class="slot 3"></div>
                         </div>
 		</div>
-		<div class="row">
-                        <div class="">
-                                <div id="four" class="slot col-xs-4"></div>
+                <div class="row">
+                        <div id="4" class="col-xs-4 box">
+                                <div class="slot 4"></div>
                         </div>
-                        <div class="">
-                                <div id="five" class="slot col-xs-4"></div>
+                        <div id="5" class="col-xs-4 box">
+                                <div class="slot 5"></div>
                         </div>
-                        <div class="">
-                                <div id="six" class="slot col-xs-4"></div>
-                        </div>
-                </div>
-		<div class="row">
-                        <div class="">
-                                <div id="seven" class="slot col-xs-4"></div>
-                        </div>
-                        <div class="">
-                                <div id="eight" class="slot col-xs-4"></div>
-                        </div>
-                        <div class="">
-                                <div id="nine" class="slot col-xs-4"></div>
+                        <div id="6" class="col-xs-4 box">
+                                <div class="slot 6"></div>
                         </div>
                 </div>
+                <div class="row">
+                        <div id="7" class="col-xs-4 box">
+                                <div class="slot 7"></div>
+                        </div>
+                        <div id="8" class="col-xs-4 box">
+                                <div class="slot 8"></div>
+                        </div>
+                        <div id="9" class="col-xs-4 box">
+                                <div class="slot 9"></div>
+                        </div>
+                </div>		
 	</div>	
-
-
-
-	<hr>
-	<div style="display:block">
-    		<form>
-        		<label for="a">Number 1:</label>
-        		<input type="number" id="a"/>
-        		<br>
-        		<label for="a">Number 2:</label>
-        		<input type="number" id="b"/>
-        		<br>
-        		<input type="button" id="buttonSum" value="Sum"/>
-        		<br>
-        		<p>Result:&nbsp;:<span id="result"></span></p>
-    		</form>
-</div>
 </body>
 </html>

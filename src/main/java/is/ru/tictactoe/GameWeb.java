@@ -9,17 +9,17 @@ public class GameWeb
 	{
 		port(getHerokuPort());
 		staticFiles.location("/public");
+		Tictactoe game = new Tictactoe();
+		game.InitializeGame();
+		// Get request when player makes move on game board
 		get("/api/game", (req, res) -> 
 		{
             		QueryParamsMap map = req.queryMap();
-			Tictactoe game = new Tictactoe();
             		try 
 			{
-                		//Integer a = map.get("a").integerValue();
-                		//Integer b = map.get("b").integerValue();
-				char a = game.test();
-				return a;
-                		//return a + b;
+                		Integer slot = map.get("slot").integerValue();
+				char player = game.PlayerMove(slot);
+				return player;
 	
            		}
             		catch (Exception e)
@@ -27,6 +27,21 @@ public class GameWeb
                 		return "Error: " + e.getMessage();
             		}
         	});
+
+                // Get request when players want to start new game
+                get("/api/refresh", (req, res) ->
+                {
+                        try
+                        {
+				String ret = game.InitializeGame();
+                                return ret;
+
+                        }
+                        catch (Exception e)
+                        {
+                                return "Error: " + e.getMessage();
+                        }
+                });		
       
     	}
 
