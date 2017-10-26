@@ -9,17 +9,16 @@ public class GameWeb
 	{
 		port(getHerokuPort());
 		staticFiles.location("/public");
+		Tictactoe game = new Tictactoe();
+		game.InitializeGame();
 		get("/api/game", (req, res) -> 
 		{
             		QueryParamsMap map = req.queryMap();
-			Tictactoe game = new Tictactoe();
             		try 
 			{
-                		//Integer a = map.get("a").integerValue();
-                		//Integer b = map.get("b").integerValue();
-				char a = game.test();
-				return a;
-                		//return a + b;
+                		Integer slot = map.get("slot").integerValue();
+				char player = game.PlayerMove(slot);
+				return player;
 	
            		}
             		catch (Exception e)
