@@ -10,7 +10,7 @@ public class GameWeb
 		port(getHerokuPort());
 		staticFiles.location("/public");
 		Tictactoe game = new Tictactoe();
-		game.InitializeGame();
+                game.InitializeGame();
 		// Get request when player makes move on game board
 		get("/api/game", (req, res) -> 
 		{
@@ -18,8 +18,23 @@ public class GameWeb
             		try 
 			{
                 		Integer slot = map.get("slot").integerValue();
-				char player = game.PlayerMove(slot);
-				return player;
+				String player = game.PlayerMove(slot);
+				if (game.GameWon(player, slot))				// Return if game has been won by player
+				{
+					if (player == game.PLAYER_X)
+					{
+						return game.XWON;
+					}	
+					else
+					{
+						return game.OWON;
+					}
+				}
+				if (game.IsDraw())					// Return if game has ended in a draw
+				{
+					return game.DRAW;
+				}
+				return player;						// Otherwise return player who did the move and update game
 	
            		}
             		catch (Exception e)
@@ -42,7 +57,6 @@ public class GameWeb
                                 return "Error: " + e.getMessage();
                         }
                 });		
-      
     	}
 
 	static int getHerokuPort() 
