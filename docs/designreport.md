@@ -30,7 +30,7 @@ Example:
 ```javascript
 ThisIsMyClass();  
 ThisIsMyFunction();
-´´´
+```
 	
 #####Variable names
 - Use upper case letters as word separators, lower case for the rest of the word
@@ -42,7 +42,7 @@ ThisIsMyFunction();
 Example: 
 ```javascript
 thisIsMyVariable;
-´´´
+```
 	
 #####Constant names
 - All uppercase  
@@ -50,7 +50,7 @@ thisIsMyVariable;
 Example:
 ```javascript
 public static final int SIZE = 3;
-´´´
+```
 
 #####Spaces
 - Spaces around operators
@@ -58,29 +58,29 @@ public static final int SIZE = 3;
 Example:
 ```javascript
 x = i + 1;
-´´´	
+```
 	
 - No spaces at in the beginning and end of parantheses
 	
 Do: 
 ```javascript
 i = (i + 1);
-´´´
+```
 Don't:
 ```javascript
 i = ( i + 1 );
-´´´
+```
 
 - Spaces before and after brackets and parantheses
 	
 Do:
 ```javascript
 x = 2 * (y + 1) - 3;  
-´´´ 
+```
 Don't:
 ```javascript
 x = 2 *(y+1)-3; 	
-´´´ 
+```
 	
 #####Loops
 - Put space before the loops parantheses
@@ -102,7 +102,7 @@ while (x == y)
 } 	
   
 SomethingOutsideTheloop(); 	
-´´´ 	
+```	
 	
 - else and else if is written on the next line
 
@@ -116,7 +116,7 @@ else
 {  
    SomethingElse();  
 }; 
-´´´ 
+```
 
 ####  Ordered Lists
 
