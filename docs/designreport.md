@@ -6,7 +6,7 @@
 * Berglind Dúna Sigurðardóttir  
 * Íris Björk Snorradóttir  
 * Magnús Björn Sigurðsson  
-* Olga Ýr Georgsdóttir  
+* oo Olga Ýr Georgsdóttir  
 
 ### About TicTacToe
 TicTacToe is a simple game between two players, X and O, who take turns marking the spaces in a 3x3 grid. The player that succeeds in getting three of their mark in a row wins the game, the row can be horizontal, vertical, or diagonal. The following example show a win by the first player, player X:
