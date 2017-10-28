@@ -46,3 +46,14 @@ $(document).on('click', "#new-game", function() {
 	});
 });
 
+$(window).on('beforeunload', function(){
+	$.ajax({
+		url: 'api/refresh',
+		success: function(data) {
+			if (data == "refreash") {
+				window.location.reload();
+			}
+		}
+	});
+});
+
