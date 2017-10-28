@@ -7,10 +7,11 @@ public class GameWeb
 	
 	public static void main(String[] args) 
 	{
-		port(getHerokuPort());
+		port(GetHerokuPort());
 		staticFiles.location("/public");
 		Tictactoe game = new Tictactoe();
                 game.InitializeGame();
+
 		// Get request when player makes move on game board
 		get("/api/game", (req, res) -> 
 		{
@@ -21,19 +22,14 @@ public class GameWeb
 				String player = game.PlayerMove(slot);
 				if (game.GameWon(player, slot))				// Return if game has been won by player
 				{
-					if (player == game.PLAYER_X)
-					{
-						return game.XWON;
-					}	
-					else
-					{
-						return game.OWON;
-					}
+					return ReturnWinner(player, game);
 				}
+
 				if (game.IsDraw())					// Return if game has ended in a draw
 				{
 					return game.DRAW;
 				}
+
 				return player;						// Otherwise return player who did the move and update game
 	
            		}
@@ -59,13 +55,28 @@ public class GameWeb
                 });		
     	}
 
-	static int getHerokuPort() 
+	// Return who won the game
+	static String ReturnWinner(String playerOne, Tictactoe game)
+	{
+		if (playerOne == game.PLAYER_X)
+		{
+			return game.XWON;
+		}
+		else
+		{
+			return game.OWON;
+		}
+	}
+
+	// Get Heroku port
+	static int GetHerokuPort() 
 	{
 		ProcessBuilder psb = new ProcessBuilder();
 		if (psb.environment().get("PORT") != null) 
 		{
 	    		return Integer.parseInt(psb.environment().get("PORT"));
 		}
+
 		return 4567;
     	}
 }
