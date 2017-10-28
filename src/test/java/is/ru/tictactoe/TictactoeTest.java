@@ -1,161 +1,140 @@
 package is.ru.tictactoe;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 import org.junit.Test;
-
-public class TictactoeTest 
+import static org.hamcrest.CoreMatchers.*;
+public class TictactoeTest
 {
-	// Test game initialation
-	@Test
-	public void TestInitialization()
-	{
-		Tictactoe t = new Tictactoe();
-		t.InitializeGame();
-		
-		for (int i = 0; i < t.SIZE; i++)
+        // Test game board init
+        @Test
+        public void TestBoardInit()
+        {
+                Tictactoe t = new Tictactoe();
+                t.InitializeBoard();
+
+                for (int i = 0; i < t.SIZE; i++)
                 {
                         for (int j = 0; j < t.SIZE; j++)
                         {
-                                assertEquals(0, t.gameBoard[i][j]);
+                                assertEquals(t.STATUS_EMPTY, t.gameBoard[i][j]);
                         }
                 }
-	}
+        }
 	
-	// Test player move
+	// Test status of current player when game is initialized
 	@Test
-	public void TestXPlayerTurn()
+	public void TestGameInit()
 	{
 		Tictactoe t = new Tictactoe();
-		t.InitializeGame();			// Initialize the game
-		t.PlayerTurn(t.X, 2, 2);		// Set slot (2,2) as X
-		assertEquals(t.X, t.gameBoard[2][2]);	
-							
+		t.InitializeGame();
+		assertEquals(t.PLAYER_X, t.currPlayer);
+	}
+	
+	// Test player move on game board
+	@Test
+	public void TestPlayerXMoveToThirdSlot()
+	{
+		Tictactoe t = new Tictactoe();
+		t.InitializeGame();
+		t.PlayerMove(3);			// Player_X moves to slot (0,2)			
+		assertEquals(t.PLAYER_X, t.gameBoard[0][2]);
 	}
 
-	// Test another player move
+	// Test another player move on game board
         @Test
-        public void TestOPlayerTurn()
+        public void TestPlayerOMoveToNinthSlot()
         {
                 Tictactoe t = new Tictactoe();
-                t.InitializeGame();                     // Initialize the game
-		t.PlayerTurn(t.O, 1, 2);
-                assertEquals(t.O, t.gameBoard[1][2]);
+                t.InitializeGame();
+                t.PlayerMove(3);                        // Player_X moves to slot (0,2)
+		t.PlayerMove(9);			// PLAYER_O moves to slot (2,2)
+                assertEquals(t.PLAYER_O, t.gameBoard[2][2]);
+        }
+
+        // Test another player move on game board
+        @Test
+        public void TestPlayerXMoveToFifthSlot()
+        {
+                Tictactoe t = new Tictactoe();
+                t.InitializeGame();
+                t.PlayerMove(5);                        // Player_X moves to slot (1,1)
+                assertEquals(t.PLAYER_X, t.gameBoard[1][1]);
+        }
+
+        // Test invalid player move
+        @Test
+        public void TestInvalidPlayerMove()
+        {
+                Tictactoe t = new Tictactoe();
+                t.InitializeGame();
+                t.PlayerMove(13);                       // Invalid move
+		for (int i = 0; i < t.SIZE; i++)
+		{
+			for (int j = 0; j < t.SIZE; j++)
+			{
+				assertEquals(t.STATUS_EMPTY, t.gameBoard[i][j]); 
+			}
+		}
+                
         }
 	
-	// Testing when game is won on diagonal line
-	@Test
-        public void TestWinDiagonalLine()
-        {
-                Tictactoe t = new Tictactoe();
-                t.InitializeGame();                     // Initialize the game
-                t.PlayerTurn(t.O, 0, 0);
-		t.PlayerTurn(t.O, 1, 1);
-		t.PlayerTurn(t.O, 2, 2);		// Now the game has been won by player O
-                assertEquals(true, t.GameWon(t.O, 2, 2));
-        }
-
-	// Testing when game is won on reverse diagonal line
+	// Test player move if game is in status DRAW
         @Test
-        public void TestWinReverseDiagonalLine()
+        public void TestPlayerMoveWhenDraw()
         {
                 Tictactoe t = new Tictactoe();
-                t.InitializeGame();                     // Initialize the game
-                t.PlayerTurn(t.X, 0, 2);
-                t.PlayerTurn(t.X, 2, 0);
-                t.PlayerTurn(t.X, 1, 1);                // Now the game has been won by player X
-                assertEquals(true, t.GameWon(t.X, 1, 1));
-        }		
-
-        // Testing when game is won on column
-        @Test
-        public void TestWinOnColumn()
-        {
-                Tictactoe t = new Tictactoe();
-                t.InitializeGame();                     // Initialize the game
-                t.PlayerTurn(t.X, 0, 0);
-                t.PlayerTurn(t.X, 0, 1);
-                t.PlayerTurn(t.X, 0, 2);                // Now the game has been won by player X
-                assertEquals(true, t.GameWon(t.X, 0, 2));
+                t.InitializeGame();
+                					// Create when game ends in a draw
+		t.PlayerMove(2);
+		t.PlayerMove(1);
+                t.PlayerMove(5);
+                t.PlayerMove(3);
+                t.PlayerMove(6);
+                t.PlayerMove(4);
+                t.PlayerMove(7);
+                t.PlayerMove(8);
+		t.PlayerMove(9);         
+                assertEquals(true, t.IsDraw());		// Game ended in a draw, should return true
         }
 	
-		// Testing when game is won on line
+        // Test draw function when game is still in playing mode
         @Test
-        public void TestWinOnLine()
+        public void TestPlayerMoveWhenNotDraw()
         {
                 Tictactoe t = new Tictactoe();
-                t.InitializeGame();                     // Initialize the game
-                t.PlayerTurn(t.O, 1, 0);
-                t.PlayerTurn(t.O, 1, 2);
-                t.PlayerTurn(t.O, 1, 1);                // Now the game has been won by player O
-                assertEquals(true, t.GameWon(t.O, 1, 1));
+                t.InitializeGame();
+                                                        // Create a game that is not in draw status
+                t.PlayerMove(2);
+                t.PlayerMove(1);
+ 		assertEquals(false, t.IsDraw());	               
         }
-
-        // Testing when game has not been won
+	
+        // Test won function when player x has won the game 
+        @Test
+        public void TestPlayerXHasWon()
+        {
+                Tictactoe t = new Tictactoe();
+                t.InitializeGame();
+                                                        // Create a game that player x wins
+                t.PlayerMove(1);
+                t.PlayerMove(2);
+                t.PlayerMove(4);
+                t.PlayerMove(3);
+		String player = t.PlayerMove(7);	// PlayerMove returns player who did the move and swaps players
+                assertEquals(true, t.GameWon(player, 7));
+        }
+	
+        // Test won function when the game has not been won
         @Test
         public void TestGameNotWon()
         {
                 Tictactoe t = new Tictactoe();
-                t.InitializeGame();                     // Initialize the game
-                t.PlayerTurn(t.O, 1, 0);
-                t.PlayerTurn(t.X, 1, 2);
-                t.PlayerTurn(t.O, 0, 0);                // Game has not been won
-                assertEquals(false, t.GameWon(t.O, 0, 0));
-        }
-
-        // Testing when game has ended in draw
-        @Test
-        public void TestGameIsDraw()
-        {
-                Tictactoe t = new Tictactoe();
-                t.InitializeGame();                     // Initialize the game
-                t.PlayerTurn(t.O, 0, 0);
-                t.PlayerTurn(t.X, 0, 1);
-                t.PlayerTurn(t.O, 0, 2);
-                t.PlayerTurn(t.O, 1, 0);
-                t.PlayerTurn(t.X, 1, 1);
-                t.PlayerTurn(t.O, 1, 2);                 
-                t.PlayerTurn(t.X, 2, 0);
-                t.PlayerTurn(t.O, 2, 1);  
-                t.PlayerTurn(t.X, 2, 2);   				// Game has ended in draw  
-                assertEquals(true, t.Draw());
-        }
-
-        // Testing when game has not ended in draw
-        @Test
-        public void TestGameIsNotDraw()
-        {
-                Tictactoe t = new Tictactoe();
-                t.InitializeGame();                     // Initialize the game
-                t.PlayerTurn(t.O, 0, 0);
-                t.PlayerTurn(t.X, 0, 1);
-                t.PlayerTurn(t.O, 0, 2);
-                t.PlayerTurn(t.O, 1, 0);
-                t.PlayerTurn(t.X, 1, 1);
-                t.PlayerTurn(t.O, 1, 2);                 // Game has not ended in draw  
-                assertEquals(false, t.Draw());
-        }
-
-        // Testing UpdateGame function
-        @Test
-        public void TestUpdateGame()
-        {
-                Tictactoe t = new Tictactoe();
-                t.InitializeGame();                     // Initialize the game
-                t.PlayerTurn(t.O, 0, 0);
-                t.PlayerTurn(t.O, 0, 1);
-                t.PlayerTurn(t.O, 0, 2);
-                t.UpdateGame(t.O, 0, 2);				// O has won the game
-
-                assertEquals(t.OWON, t.currStatus);
-        }
-
-        // Testing ValidateIndicies function
-        @Test
-        public void TestValidateIndicies()
-        {
-                Tictactoe t = new Tictactoe();                   
-                assertEquals(false, t.ValidateIndicies(3,3));
-        }
-
-
+                t.InitializeGame();
+                                                        // Create a game that player x wins
+                t.PlayerMove(1);
+                t.PlayerMove(2);
+                t.PlayerMove(3);
+                String player = t.PlayerMove(4);
+                assertEquals(false, t.GameWon(player, 7));
+        }	
 }
