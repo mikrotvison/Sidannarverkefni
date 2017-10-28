@@ -27,9 +27,10 @@ Coding rules were made that need to be followed while programming the assignment
 - No underbars ('_')  
 	
 Example: 
-
-	ThisIsMyClass();  
-	ThisIsMyFunction();
+```javascript
+ThisIsMyClass();  
+ThisIsMyFunction();
+´´´
 	
 #####Variable names
 - Use upper case letters as word separators, lower case for the rest of the word
