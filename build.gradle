@@ -9,8 +9,11 @@ ext {
 }
 
 repositories {
-    jcenter()
-  
+    jcenter()  
+}
+
+sourceSets {
+  selenium
 }
 
 dependencies {
@@ -19,10 +22,24 @@ dependencies {
     compile "org.slf4j:slf4j-simple:1.7.12"
     // Test dependencies
     testCompile 'junit:junit:4.12'
+    // Selenium dependencies
+    seleniumCompile 'junit:junit:4.12'
+    seleniumCompile 'org.seleniumhq.selenium:selenium-java:3.6.0'
 }
 
 task stage {
   dependsOn installDist
+}
+
+test.useTestNG()
+
+task selenium(type: Test, dependsOn: installDist) {
+  testClassesDir = sourceSets.selenium.output.classesDir
+  classpath = sourceSets.selenium.runtimeClasspath
+
+  doFirst {
+    'build/install/Sidannarverkefni/bin/Sidannarverkefni'.execute()
+  }
 }
 
 jacoco {
