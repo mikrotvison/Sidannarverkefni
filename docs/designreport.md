@@ -40,38 +40,47 @@ ThisIsMyFunction();
 - No underbars ('_')  
 	
 Example: 
-
-	thisIsMyVariable
-
+```javascript
+thisIsMyVariable;
+´´´
 	
 #####Constant names
 - All uppercase  
-	
-Example: 
 
-	public static final int SIZE = 3;
+Example:
+```javascript
+public static final int SIZE = 3;
+´´´
 
 #####Spaces
 - Spaces around operators
 	
-Example: 
-
-	x = i + 1;
-		
+Example:
+```javascript
+x = i + 1;
+´´´	
 	
 - No spaces at in the beginning and end of parantheses
 	
-Example: 
-
-	Do: (i + 1)  
-	Don't: ( i + 1 ) 	
+Do: 
+```javascript
+i = (i + 1);
+´´´
+Don't:
+```javascript
+i = ( i + 1 );
+´´´
 
 - Spaces before and after brackets and parantheses
 	
-Example: 
-
-	Do: x = 2 * (y + 1) - 3;  
-	Don't: x = 2 *(y+1)-3; 	
+Do:
+```javascript
+x = 2 * (y + 1) - 3;  
+´´´ 
+Don't:
+```javascript
+x = 2 *(y+1)-3; 	
+´´´ 
 	
 #####Loops
 - Put space before the loops parantheses
@@ -84,28 +93,30 @@ Example:
 
 - Newline is after each loop
 	
-Example: 
-
-	while (x == y)  
-	{  
-	   Something();  
-	   SomethingElse();  
-	} 	
-	  
-	SomethingOutsideTheloop(); 	
+Example:
+```javascript
+while (x == y)  
+{  
+   Something();  
+   SomethingElse();  
+} 	
+  
+SomethingOutsideTheloop(); 	
+´´´ 	
 	
 - else and else if is written on the next line
 
 Example: 
-
-	if (x != 2)   
-	{   
-	   Something();  
-	}  
-	else  
-	{  
-	   SomethingElse();  
-	}; 
+```javascript
+if (x != 2)   
+{   
+   Something();  
+}  
+else  
+{  
+   SomethingElse();  
+}; 
+´´´ 
 
 ####  Ordered Lists
 
