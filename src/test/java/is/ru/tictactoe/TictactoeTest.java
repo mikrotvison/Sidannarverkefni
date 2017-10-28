@@ -124,17 +124,107 @@ public class TictactoeTest
                 assertEquals(true, t.GameWon(player, 7));
         }
 	
-        // Test won function when the game has not been won
-        @Test
-        public void TestGameNotWon()
-        {
-                Tictactoe t = new Tictactoe();
-                t.InitializeGame();
-                                                        // Create a game that player x wins
-                t.PlayerMove(1);
-                t.PlayerMove(2);
-                t.PlayerMove(3);
-                String player = t.PlayerMove(4);
-                assertEquals(false, t.GameWon(player, 7));
-        }	
+    // Test won function when player O has won the game
+    @Test
+    public void TestPlayerOHasWon()
+    {
+        Tictactoe t = new Tictactoe();
+        t.InitializeGame();
+        // Create a game that player O wins
+        t.PlayerMove(1);
+        t.PlayerMove(5);
+        t.PlayerMove(2);
+        t.PlayerMove(3);
+        t.PlayerMove(4);
+        String player = t.PlayerMove(7);        // PlayerMove returns player who did the move and swaps players
+        assertEquals(true, t.GameWon(player, 7));
+    }
+    
+    // Test won function when the game has not been won
+    @Test
+    public void TestGameNotWon()
+    {
+        Tictactoe t = new Tictactoe();
+        t.InitializeGame();
+        // Create a game that player x wins
+        t.PlayerMove(1);
+        t.PlayerMove(2);
+        t.PlayerMove(3);
+        String player = t.PlayerMove(4);
+        assertEquals(false, t.GameWon(player, 7));
+    }
+    
+    // Test change player function, player X to Player O
+    @Test
+    public void TestChangePlayerXToO()
+    {
+        Tictactoe t = new Tictactoe();
+        t.InitializeGame();
+        
+        t.PlayerMove(1);
+        assertEquals(t.PLAYER_O, t.currPlayer);
+    }
+    
+    // Test change player function, player O to Player X
+    @Test
+    public void TestChangePlayerOToX()
+    {
+        Tictactoe t = new Tictactoe();
+        t.InitializeGame();
+        
+        t.PlayerMove(1);
+        t.PlayerMove(2);
+        assertEquals(t.PLAYER_X, t.currPlayer);
+    }
+    
+    // Test when slot is not available for playerX
+    @Test
+    public void TestSlotIsNotAvailableForPlayerX()
+    {
+        Tictactoe t = new Tictactoe();
+        t.InitializeGame();
+        
+        t.PlayerMove(1);
+        t.PlayerMove(2);
+        t.PlayerMove(2);                        //unvalid and not available
+        assertEquals(t.PLAYER_O, t.gameBoard[0][1]);
+        assertEquals(t.PLAYER_X, t.currPlayer);
+        
+    }
+    
+    // Test when slot is not available for playerY
+    @Test
+    public void TestSlotIsNotAvailableForPlayerO()
+    {
+        Tictactoe t = new Tictactoe();
+        t.InitializeGame();
+        
+        t.PlayerMove(1);
+        t.PlayerMove(2);
+        t.PlayerMove(3);
+        t.PlayerMove(3);                       //unvalid and not available
+        assertEquals(t.PLAYER_X, t.gameBoard[0][2]);
+        assertEquals(t.PLAYER_O, t.currPlayer);
+        
+    }
+    
+    //Test when player picks a slot he has already picked
+    @Test
+    public void TestIfPlayerCanPickHisOwnSlot()
+    {
+        Tictactoe t = new Tictactoe();
+        t.InitializeGame();
+        
+        t.PlayerMove(1);
+        t.PlayerMove(2);
+        t.PlayerMove(3);
+        t.PlayerMove(2);                        //pick his own slot, unvalid
+        assertEquals(t.PLAYER_O, t.gameBoard[0][1]);
+        assertEquals(t.PLAYER_O, t.currPlayer);
+        
+    }
 }
+    
+    
+    
+    
