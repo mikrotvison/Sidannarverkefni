@@ -1,9 +1,10 @@
 language: java
+sudo: required
 jobs:
   include:
-  - stage: running unit tests
+  - stage: Run all unit tests
     script: gradle check
-  - stage: deploying app to staging server
+  - stage: Deploying app to staging server 
     script: skip
     deploy:
     - provider: heroku
@@ -12,13 +13,23 @@ jobs:
       app: webtictactoe-hugb
       on:
         all_branches: true
-  - stage: e2e tests on staging server
+  - stage: Selenium tests on staging server
+    addons:
+      chrome: stable
+    install:
+    - wget -N http://chromedriver.storage.googleapis.com/2.30/chromedriver_linux64.zip
+    -P ~/
+    - unzip ~/chromedriver_linux64.zip -d ~/
+    - rm ~/chromedriver_linux64.zip
+    - sudo mv -f ~/chromedriver /usr/local/share/
+    - sudo chmod +x /usr/local/share/chromedriver
+    - sudo ln -s /usr/local/share/chromedriver /usr/local/bin/chromedriver
     before_script:
     - export DISPLAY=:99.0
     - sh -e /etc/init.d/xvfb start
-    - sleep 3
+    - sleep 5
     script: gradle selenium
-  - stage: deploying app to production
+  - stage: Deploying app to production :)
     deploy:
     - provider: heroku
       api_key:
