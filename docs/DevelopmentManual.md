@@ -4,7 +4,7 @@
 This manual provides information and describes each step for developers so they will be able to start working beneficially as soon as possible. Following these steps will let your machine to get ready to start commiting code into the repository. 
 
 
-To be able to build and commit to the project TicTacToe the following has to be installed and running on the maschine:
+To be able to build and commit to the project TicTacToe the following has to be installed and running on the machine:
 
 ####1. Set up Git
 - The code is stored at http://www.github.com/mikrotvison/Sidannarverkefni. 
@@ -23,15 +23,15 @@ To be able to build and commit to the project TicTacToe the following has to be 
 Following is a list of services used in the program: 
 
 - Heroku: Deployes and stores the app. 
-- Spark: 
+- Spark: Used to program the web server.
 - Travis: Continuous deployment.
 - Selenium: End-to-end tests. 
 
 ## Get Started
 1.	Access your preferred command line client on your machine.
-2.	Clone the repository to your computer.
-* “Git clone: https://github.com/mikrotvison/Sidannarverkefni”
+2.	Clone the repository to your computer. “Git clone https://github.com/mikrotvison/Sidannarverkefni”
 3.	Now you are able to start editing the code. 
 4.	To build the program run "gradle clean build".
-5.	To run the program run "gradle run".
+5.	To run the program run "gradle run". This will run the project locally on your machine.
+6.	When you have made changes on the project. Stage the changes using git add and git commit. Git push origin (nameofbranch) will add the project to the source control. When creating pull request on git, continuous deployment phase will start on Travis. 
 
