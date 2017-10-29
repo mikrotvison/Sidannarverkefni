@@ -1,38 +1,37 @@
-dist: trusty
 sudo: required
 language: java
 jobs:
   include:
-  - stage: running unit tests
+    stage: running unit tests
     script: gradle check
-  - stage: deploying app to staging server
+    stage: Deploying app to staging server
     script: skip
     deploy:
-    - provider: heroku
+      provider: heroku
       api_key:
         secure: 3ssUcMVuz0i/YCdYg8P3z8U4OAYcsIWHGqHOqznoNPQ738UkeN0cgbCySI1w0IZut2VwhrmIjJK+uZfMy7P4QqomN+rYnVBPnWbC9X/Qbs5rkgWXVUUYpiF3aoETpTeeq64ch0s7yM+r+3HNimxaEYs4qZT9uC7+XYkhWzeE6aXvgyb+PERgSeI5hEHz5w71n+m1pHO0KyshToq0QmTdjE9IKlTkzwN64xM800KIqDWS+tUGvAof0NSzEmVGv24O86Vu4PXHBW5OSmpgzaJzaXCMHERkrRJ91ElGLy8eAKAqNBQQQWu+GsZcYXJFBzqAlZemmoch5iHw1SQh+rvZhy5silnsNyMpwHYXS17fa8jboRpjEcqxDis+tJoCbYqTnhdlruvy3xFg8HIeG/tcPwjIfLGPuOGoXNfeUxDiliey3lSZ8GhVK/2YoDc5nSktoQqKjnOcrPI6BfYjwAdXJNZc5iLBYHnPyUXtY4NK0Vu0z8PEesFoXNZVYjT5CbuzxQTuynUV6QgGNLgpSKq/P/vyntbD00MDKhrZDu/6LF1Gw9qIIPC96ga9EpGdtR1P+yKRLGO7OlUsHWRIssARXzcImr/kjmG/eO0dPPUVKqsylDrl68G12WVbBWbaLKvxItq3m9t4E3+hSUdCN+u9b3EDpUIIosiaOF9CIsri+ow=       
       app: webtictactoe-hugb
       on:
         all_branches: true
-  - stage: e2e tests on staging server
+    stage: E2E selenium tests on staging server
     addons:
       chrome: stable
     install:
-    - wget -N http://chromedriver.storage.googleapis.com/2.30/chromedriver_linux64.zip
-      -P ~/
-    - unzip ~/chromedriver_linux64.zip -d ~/
-    - rm ~/chromedriver_linux64.zip
-    - sudo mv -f ~/chromedriver /usr/local/share/
-    - sudo chmod +x /usr/local/share/chromedriver
-    - sudo ln -s /usr/local/share/chromedriver /usr/local/bin/chromedriver
+      wget -N http://chromedriver.storage.googleapis.com/2.30/chromedriver_linux64.zip
+     P ~/
+      unzip ~/chromedriver_linux64.zip -d ~/
+      rm ~/chromedriver_linux64.zip
+      sudo mv -f ~/chromedriver /usr/local/share/
+      sudo chmod +x /usr/local/share/chromedriver
+      sudo ln -s /usr/local/share/chromedriver /usr/local/bin/chromedriver
     before_script:
-    - export DISPLAY=:99.0
-    - sh -e /etc/init.d/xvfb start
-    - sleep 3
+      export DISPLAY=:99.0
+      sh -e /etc/init.d/xvfb start
+      sleep 5
     script: gradle selenium
-  - stage: deploying app to production
+    stage: Deploying app to production server :)
     deploy:
-    - provider: heroku
+      provider: heroku
       api_key:
         secure: 3ssUcMVuz0i/YCdYg8P3z8U4OAYcsIWHGqHOqznoNPQ738UkeN0cgbCySI1w0IZut2VwhrmIjJK+uZfMy7P4QqomN+rYnVBPnWbC9X/Qbs5rkgWXVUUYpiF3aoETpTeeq64ch0s7yM+r+3HNimxaEYs4qZT9uC7+XYkhWzeE6aXvgyb+PERgSeI5hEHz5w71n+m1pHO0KyshToq0QmTdjE9IKlTkzwN64xM800KIqDWS+tUGvAof0NSzEmVGv24O86Vu4PXHBW5OSmpgzaJzaXCMHERkrRJ91ElGLy8eAKAqNBQQQWu+GsZcYXJFBzqAlZemmoch5iHw1SQh+rvZhy5silnsNyMpwHYXS17fa8jboRpjEcqxDis+tJoCbYqTnhdlruvy3xFg8HIeG/tcPwjIfLGPuOGoXNfeUxDiliey3lSZ8GhVK/2YoDc5nSktoQqKjnOcrPI6BfYjwAdXJNZc5iLBYHnPyUXtY4NK0Vu0z8PEesFoXNZVYjT5CbuzxQTuynUV6QgGNLgpSKq/P/vyntbD00MDKhrZDu/6LF1Gw9qIIPC96ga9EpGdtR1P+yKRLGO7OlUsHWRIssARXzcImr/kjmG/eO0dPPUVKqsylDrl68G12WVbBWbaLKvxItq3m9t4E3+hSUdCN+u9b3EDpUIIosiaOF9CIsri+ow=      
       app: tranquil-scrubland-92349
