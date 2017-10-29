@@ -6,19 +6,19 @@ This manual provides information and describes each step for developers so they 
 
 To be able to build and commit to the project TicTacToe the following has to be installed and running on the machine:
 
-####1. Set up Git
+#### 1. Set up Git
 - The code is stored at http://www.github.com/mikrotvison/Sidannarverkefni. 
 - You will have to create a GitHub account if you don't have one already. 
 - You will have to be invited to the organization mikrotvison on GitHub to be able to access and edit the code. 
 - Set up git on your machine. 
 
-####2. Set up Gradle
+#### 2. Set up Gradle
 - Set up Gradle on your machine. 
 
-####3. Set up Java Development Kit
+#### 3. Set up Java Development Kit
 - Set up Java development kit on your machine.
 
-##Other services
+## Other services
 
 Following is a list of services used in the program: 
 
