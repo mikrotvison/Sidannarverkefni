@@ -25,12 +25,16 @@ dependencies {
     seleniumCompile 'junit:junit:4.12'
     seleniumCompile 'org.seleniumhq.selenium:selenium-java:3.6.0'
 }
+
+task stage(dependsOn: installDist)
+test.useTestNG();
+
 task selenium(type: Test, dependsOn: installDist) {
-  /*testClassesDirs = sourceSets.selenium.output.classesDir*/
+  /*testClassesDir = sourceSets.selenium.output.classesDir*/
   classpath = sourceSets.selenium.runtimeClasspath
 
   doFirst {
-    'build/install/Sidannarverkefni/bin/Sidannarverkefni'.execute()
+    'build/install/Sidannarverkefni/bin/Sidannarverkefni.bat'.execute()
   }
 }
 
