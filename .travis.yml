@@ -1,10 +1,11 @@
 language: java
 sudo: required
+dist: trusty
 jobs:
   include:
   - stage: Run all unit tests
     script: gradle check
-  - stage: Deploying app to staging server 
+  - stage: Deploying app to staging server
     script: skip
     deploy:
     - provider: heroku
@@ -18,7 +19,7 @@ jobs:
       chrome: stable
     install:
     - wget -N http://chromedriver.storage.googleapis.com/2.30/chromedriver_linux64.zip
-    -P ~/
+      -P ~/
     - unzip ~/chromedriver_linux64.zip -d ~/
     - rm ~/chromedriver_linux64.zip
     - sudo mv -f ~/chromedriver /usr/local/share/
@@ -27,7 +28,7 @@ jobs:
     before_script:
     - export DISPLAY=:99.0
     - sh -e /etc/init.d/xvfb start
-    - sleep 5
+    - sleep 3
     script: gradle selenium
   - stage: Deploying app to production :)
     deploy:
