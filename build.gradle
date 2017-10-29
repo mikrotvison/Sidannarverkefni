@@ -32,7 +32,6 @@ javadoc {
     destinationDir = file("./docs/endtoendtests/")
 }
 task stage(dependsOn: installDist)
-test.useTestNG();
 
 task selenium(type: Test, dependsOn: installDist) {
   testClassesDir = sourceSets.selenium.output.classesDir
@@ -49,9 +48,14 @@ jacoco {
 
 jacocoTestReport {
         reports {
-                html.enabled = true;
+        	html {
+        		enabled true
+        		destination file("${buildDir}/jacocoHtml")
+        	}
+                //html.enabled = true;
                 csv.enabled = true;
                 xml.enabled = true;
         }
 }
+
 test.finalizedBy jacocoTestReport
