@@ -1,8 +1,28 @@
 language: java
-deploy:
-  provider: heroku
-  api_key:
-    secure: 0fUCtmjYM60locHqM6qjwAXJC/2SP8m4N3SGzgd+Kt61T2o471JmCCyeC5R1Y+W56amSxQAjxxKMcWTpES3gpV9SuK0CE2q5wQapBsUhRL2cwEWDKwHnrI8ZXFqWleYFPqGFnb10oo6rBoetNjQI6tjhWyJEAAnr75HRbvLoLJt3RHudk7br+kCRso7dpzyyqQySQJaLSy8UnVcgHfi11/7KbKaxgqyNH29oXb8Ypvji+87EiaUSCdCAC5UEzVPn6e9uvUwbWgPvasI8CWlEDxnijQlKU/o7a4iJJsPobJvbbRtTEM7orifnDyKoM3x9w6KwFt4hXaP5/qAIrN1i4dTo260VUK/jltGiqurkpr9c3CUpjg6xtVEPrEDuHBcF8MLx0w+obNyyBxMEFt8addp/16tKxazCYG+HdK5+epe8pidZMiwfzDW5jmX+5wLWkO6IH8ieG61uO5rfTmsT4A/XsVOT3w3w0C7QtQZLbF+8RjugKHwTUwlH53z0Wo11Rf5EQHM/67DdINTbh+XNKR0y4D4JS80+Cv6WKI4ZhvADixjl7yTyXAKY/VJktpuJQQysO1ezAQs/GZ7Cney095TDxWCzCdA2aadwKkPajmP1C4oQAN9LxWo/QfIdztnuXaUW6AklSuzCwjnwtOpaozE5/w/iOJ21Ucus7IYV7hQ=
-  app: webtictactoe-hugb
-  on:
-    all_branches: true
+jobs:
+  include:
+  - stage: running unit tests
+    script: gradle check
+  - stage: deploying app to staging server
+    script: skip
+    deploy:
+    - provider: heroku
+      api_key:
+        secure: 3ssUcMVuz0i/YCdYg8P3z8U4OAYcsIWHGqHOqznoNPQ738UkeN0cgbCySI1w0IZut2VwhrmIjJK+uZfMy7P4QqomN+rYnVBPnWbC9X/Qbs5rkgWXVUUYpiF3aoETpTeeq64ch0s7yM+r+3HNimxaEYs4qZT9uC7+XYkhWzeE6aXvgyb+PERgSeI5hEHz5w71n+m1pHO0KyshToq0QmTdjE9IKlTkzwN64xM800KIqDWS+tUGvAof0NSzEmVGv24O86Vu4PXHBW5OSmpgzaJzaXCMHERkrRJ91ElGLy8eAKAqNBQQQWu+GsZcYXJFBzqAlZemmoch5iHw1SQh+rvZhy5silnsNyMpwHYXS17fa8jboRpjEcqxDis+tJoCbYqTnhdlruvy3xFg8HIeG/tcPwjIfLGPuOGoXNfeUxDiliey3lSZ8GhVK/2YoDc5nSktoQqKjnOcrPI6BfYjwAdXJNZc5iLBYHnPyUXtY4NK0Vu0z8PEesFoXNZVYjT5CbuzxQTuynUV6QgGNLgpSKq/P/vyntbD00MDKhrZDu/6LF1Gw9qIIPC96ga9EpGdtR1P+yKRLGO7OlUsHWRIssARXzcImr/kjmG/eO0dPPUVKqsylDrl68G12WVbBWbaLKvxItq3m9t4E3+hSUdCN+u9b3EDpUIIosiaOF9CIsri+ow=       
+      app: webtictactoe-hugb
+      on:
+        all_branches: true
+  - stage: e2e tests on staging server
+    before_script:
+    - export DISPLAY=:99.0
+    - sh -e /etc/init.d/xvfb start
+    - sleep 3
+    script: gradle selenium
+  - stage: deploying app to production
+    deploy:
+    - provider: heroku
+      api_key:
+        secure: 3ssUcMVuz0i/YCdYg8P3z8U4OAYcsIWHGqHOqznoNPQ738UkeN0cgbCySI1w0IZut2VwhrmIjJK+uZfMy7P4QqomN+rYnVBPnWbC9X/Qbs5rkgWXVUUYpiF3aoETpTeeq64ch0s7yM+r+3HNimxaEYs4qZT9uC7+XYkhWzeE6aXvgyb+PERgSeI5hEHz5w71n+m1pHO0KyshToq0QmTdjE9IKlTkzwN64xM800KIqDWS+tUGvAof0NSzEmVGv24O86Vu4PXHBW5OSmpgzaJzaXCMHERkrRJ91ElGLy8eAKAqNBQQQWu+GsZcYXJFBzqAlZemmoch5iHw1SQh+rvZhy5silnsNyMpwHYXS17fa8jboRpjEcqxDis+tJoCbYqTnhdlruvy3xFg8HIeG/tcPwjIfLGPuOGoXNfeUxDiliey3lSZ8GhVK/2YoDc5nSktoQqKjnOcrPI6BfYjwAdXJNZc5iLBYHnPyUXtY4NK0Vu0z8PEesFoXNZVYjT5CbuzxQTuynUV6QgGNLgpSKq/P/vyntbD00MDKhrZDu/6LF1Gw9qIIPC96ga9EpGdtR1P+yKRLGO7OlUsHWRIssARXzcImr/kjmG/eO0dPPUVKqsylDrl68G12WVbBWbaLKvxItq3m9t4E3+hSUdCN+u9b3EDpUIIosiaOF9CIsri+ow=      
+      app: tranquil-scrubland-92349
+      on:
+        all_branches: true
