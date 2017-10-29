@@ -1,26 +1,18 @@
-plugins {
-	id 'java-library'
-	id 'application'
-	id 'jacoco'
-	id 'idea'
-	id 'org.kordamp.markdown.convert' version '1.1.0'
-}
-
-allprojects {
-	markdownToHtml.sourceDir = file("docs")
-	markdownToHtml.outputDir = file("$buildDir/htmldocs")
-	markdownToHtml.configuration = [all: true]
-}
-
+apply plugin: 'application'
+apply plugin: 'jacoco'
+apply plugin: 'idea'
 mainClassName = "is.ru.tictactoe.GameWeb"
 
 ext {
-	jacocoVersion = '0.7.5.201505241946'
+        jacocoVersion = '0.7.5.201505241946'
 }
 
 repositories {
     jcenter()
-  
+}
+
+sourceSets {
+  selenium
 }
 
 dependencies {
@@ -29,22 +21,28 @@ dependencies {
     compile "org.slf4j:slf4j-simple:1.7.12"
     // Test dependencies
     testCompile 'junit:junit:4.12'
+    // Selenium dependencies
+    seleniumCompile 'junit:junit:4.12'
+    seleniumCompile 'org.seleniumhq.selenium:selenium-java:3.6.0'
 }
+task selenium(type: Test, dependsOn: installDist) {
+  /*testClassesDirs = sourceSets.selenium.output.classesDir*/
+  classpath = sourceSets.selenium.runtimeClasspath
 
-task stage {
-  dependsOn installDist
+  doFirst {
+    'build/install/Sidannarverkefni/bin/Sidannarverkefni'.execute()
+  }
 }
 
 jacoco {
-	toolVersion = jacocoVersion;
+        toolVersion = jacocoVersion;
 }
 
 jacocoTestReport {
-	reports {
-		html.enabled = true;
-		csv.enabled = true;
-		xml.enabled = true;
-	}
+        reports {
+                html.enabled = true;
+                csv.enabled = true;
+                xml.enabled = true;
+        }
 }
 test.finalizedBy jacocoTestReport
-
