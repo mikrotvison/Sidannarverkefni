@@ -1,12 +1,8 @@
 # Administration manual 
 
-##Introduction 
-This manual describes how to set up TicTacToe and get it to tun on a fresh machine.
-
-
-## How to install and run the project
-1. Download the zip file and extract it to your machine, or you can clone it to your machine using git.
-2. Open a command line client of your choice. Make sure that you are working in the TicTacToe folder.
-3. Run the command. This command deploys and runs the project in your command line client. 
-
+## How to play the game
+1. Click on this link: [https://tranquil-scrubland-92349.herokuapp.com/](1)  
+2. The game is a two player game. Click on the boxes to make your move. 
+3. You will be notified if a player wins, or if there is a tie.
+4. To start a new game click on the "New game!" button. 
 
