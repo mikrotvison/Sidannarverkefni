@@ -50,7 +50,7 @@ jacocoTestReport {
         reports {
         	html {
         		enabled true
-        		destination file("${buildDir}/jacocoHtml")
+        		destination file("docs/code coverage report")
         	}
                 //html.enabled = true;
                 csv.enabled = true;
