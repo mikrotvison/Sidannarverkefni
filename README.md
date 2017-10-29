@@ -15,6 +15,6 @@
 - [Development manual](https://github.com/mikrotvison/Sidannarverkefni/blob/master/docs/DevelopmentManual.md)
 - [Design report](https://github.com/mikrotvison/Sidannarverkefni/blob/master/docs/designreport.md)
 
-###Other
+### Other
 - Code coverage: when building the program locally by running "gradle clean build" a code coverage report is made in Sidannaverkefni/docs/code coverage report/index.html
 - Tests: To run the tests run "gradle test" a test report is made in Sidannarverkefni/build/reports/tests/test/index.html
