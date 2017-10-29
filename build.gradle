@@ -26,10 +26,11 @@ dependencies {
     seleniumCompile 'org.seleniumhq.selenium:selenium-java:3.6.0'
 }
 
+task stage(dependsOn: installDist)
 test.useTestNG();
 
 task selenium(type: Test, dependsOn: installDist) {
-  testClassesDir = sourceSets.selenium.output.classesDir
+  /*testClassesDir = sourceSets.selenium.output.classesDir*/
   classpath = sourceSets.selenium.runtimeClasspath
 
   doFirst {
