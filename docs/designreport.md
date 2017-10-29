@@ -9,12 +9,14 @@
 * Olga Ýr Georgsdóttir  
 
 ### About TicTacToe
-TicTacToe is a simple game between two players, X and O, who take turns marking the spaces in a 3x3 grid. The player that succeeds in getting three of their mark in a row wins the game, the row can be horizontal, vertical, or diagonal. The following example show a win by the first player, player X:
+TicTacToe is a simple game between two players, X and O, who take turns marking the spaces in a 3x3 grid. The player that succeeds in getting three of their mark in a row wins the game, the row can be horizontal, vertical, or diagonal. The following example show a win by player X:
 
-(Setja inn mynd þar sem X vinnur) 
+<img src="./images/gameboard.png" alt="Gameboard" align="center" style="width: 400px;"/>
 
 ### Initial design
-A class diagram was made for the initial design we had in mind. This diagram gives a good overview over the classes for the game, their attributes, operations and methods. It shows the relationship between the classes and how decision was made about the branches to use. While programming the game the class diagram was used, but with that in mind that it could change. 
+A class diagram was made for the initial design we had in mind. This diagram gives a good overview over the classes for the game, their attributes, operations and methods. It shows the relationship between the classes and how decision was made about the branches to use. While programming the game the class diagram was used, but with that in mind that it could change.
+
+<img src="./images/classdiagram.png" alt="ClassDiagram" style="width: 500px;"/>
 
 ### Coding Rules
 Coding rules were made that need to be followed while programming the assignment. Coding rules are useful, they reduce the likelihood of misunderstanding and make the code more readable. The following rules are the ones we decided on using and a few examples to explain them better:
@@ -93,16 +95,15 @@ x = 2 *(y+1)-3;
 
 - Newline is after each loop
 	
-Example:
+Example:  
 ```javascript
 while (x == y)  
 {  
    Something();  
    SomethingElse();  
 } 	
-  
-SomethingOutsideTheloop(); 	
-```	
+SomethingOutsideTheloop();
+```
 	
 - else and else if is written on the next line
 
@@ -118,7 +119,6 @@ else
 }; 
 ```
 
-#### Ordered Lists
 
 
 ### Coding Method
