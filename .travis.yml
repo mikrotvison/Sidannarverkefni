@@ -6,3 +6,4 @@ deploy:
   app: webtictactoe-hugb
   on:
     all_branches: true
+  script: 'gradle selenium'
