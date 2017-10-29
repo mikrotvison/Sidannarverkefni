@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>Tictactoe.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Sidannarverkefni</a> &gt; <a href="index.source.html" class="el_package">is.ru.tictactoe</a> &gt; <span class="el_source">Tictactoe.java</span></div><h1>Tictactoe.java</h1><pre class="source lang-java linenums">package is.ru.tictactoe;
+
+import java.util.Scanner;
+<span class="fc" id="L4">public class Tictactoe</span>
+{
+        // Constants for slot status in game
+        public static final String STATUS_EMPTY = &quot;0&quot;;
+	public static final String PLAYER_X = &quot;X&quot;;			
+	public static final String PLAYER_O = &quot;O&quot;;
+
+        // Constants for game status
+        public static final String XWON = &quot;Xw&quot;;				// Use this string in UI (.js file) 
+        public static final String OWON = &quot;Ow&quot;;				// Use this string in UI (.js file)
+        public static final String DRAW = &quot;draw&quot;;			// Use this string in UI (.js file)
+	
+
+        // Tictactoe game entities
+        public static final int SIZE = 3;				// Size of game board rows and columns
+<span class="fc" id="L19">        public static String gameBoard[][] = new String[SIZE][SIZE];  	// Represents the board of the game</span>
+	public static String currPlayer;     	
+ 	private static boolean gameOver;				// Don't insert into board if game has ended  
+	public static void InitializeBoard()
+	{
+<span class="fc bfc" id="L24" title="All 2 branches covered.">		for (int i = 0; i &lt; SIZE; i++)</span>
+		{
+<span class="fc bfc" id="L26" title="All 2 branches covered.">			for (int j = 0; j &lt; SIZE; j++)</span>
+			{
+<span class="fc" id="L28">				gameBoard[i][j] = STATUS_EMPTY;</span>
+			}
+		}
+<span class="fc" id="L31">	}</span>
+	
+	// Initializes game bord and sets first player as player X	
+	public static String InitializeGame()
+	{
+<span class="fc" id="L36">		InitializeBoard();</span>
+<span class="fc" id="L37">		currPlayer = PLAYER_X;</span>
+<span class="fc" id="L38">		gameOver = false;</span>
+<span class="fc" id="L39">		return &quot;refresh&quot;;					// Return value used to restart game in UI</span>
+	}
+	
+	// Inserts player move into board and returns which player was making the move
+	public static String PlayerMove(int slot)
+	{
+<span class="fc" id="L45">		int[] indicies = To2D(slot);</span>
+<span class="fc" id="L46">		int row = indicies[0];</span>
+<span class="fc" id="L47">		int col = indicies[1];</span>
+<span class="pc bpc" id="L48" title="1 of 4 branches missed.">		if (ValidateSlot(slot) &amp;&amp; !gameOver)			// Insert if slot is valid and game isn't over</span>
+		{
+<span class="fc bfc" id="L50" title="All 2 branches covered.">			if (gameBoard[row][col] == STATUS_EMPTY)</span>
+			{
+<span class="fc" id="L52">				gameBoard[row][col] = currPlayer;	// IsDraw checks if board is full so if game is not won it can be a draw</span>
+<span class="fc" id="L53">				String player = ChangePlayer();		// Change current player and return what player did this move</span>
+<span class="fc" id="L54">				return player;				// Return value of current player to display in UI				</span>
+			}		
+		}
+<span class="fc" id="L57">		return &quot;invalid&quot;; 					// Return &quot;invalid&quot; in UI if move wasn't valid</span>
+	}
+	
+	// Return true if game has ended in a draw
+	public static boolean IsDraw()
+	{
+<span class="fc bfc" id="L63" title="All 2 branches covered.">		for (int i = 0; i &lt; SIZE; i++)</span>
+		{
+<span class="fc bfc" id="L65" title="All 2 branches covered.">			for (int j = 0; j &lt; SIZE; j++)</span>
+			{
+<span class="fc bfc" id="L67" title="All 2 branches covered.">				if (gameBoard[i][j] == STATUS_EMPTY)</span>
+				{
+<span class="fc" id="L69">					return false;</span>
+				}
+			}
+		}
+<span class="fc" id="L73">		gameOver = true;					// The game is over</span>
+<span class="fc" id="L74">		return true; 						// Returns true if all slots are not empty	</span>
+	}
+	
+	// Slots are from 1 to 9, validate slot
+	private static boolean ValidateSlot(int slot)
+	{
+<span class="pc bpc" id="L80" title="1 of 4 branches missed.">		return ((slot &gt;= 1) &amp;&amp; (slot &lt;= 9));</span>
+	}
+
+	// Maps slot from 1D to 2D where 1 = (0,0), 2 = (0,1), 3 = (0,2), 4 = (1,0) and so on
+	private static int[] To2D(int slot)
+	{
+<span class="fc" id="L86">		int[] indicies = new int[2];				// 0 is row and 1 is col</span>
+<span class="fc bfc" id="L87" title="All 10 branches covered.">		switch (slot)</span>
+		{
+			case 1:
+<span class="fc" id="L90">				indicies[0] = 0;</span>
+<span class="fc" id="L91">				indicies[1] = 0;</span>
+<span class="fc" id="L92">				break;</span>
+                        case 2:
+<span class="fc" id="L94">                                indicies[0] = 0;</span>
+<span class="fc" id="L95">                                indicies[1] = 1;</span>
+<span class="fc" id="L96">                                break;</span>
+                        case 3:
+<span class="fc" id="L98">                                indicies[0] = 0;</span>
+<span class="fc" id="L99">                                indicies[1] = 2;</span>
+<span class="fc" id="L100">                                break;</span>
+                        case 4:
+<span class="fc" id="L102">                                indicies[0] = 1;</span>
+<span class="fc" id="L103">                                indicies[1] = 0;</span>
+<span class="fc" id="L104">                                break;</span>
+                        case 5:
+<span class="fc" id="L106">                                indicies[0] = 1;</span>
+<span class="fc" id="L107">                                indicies[1] = 1;</span>
+<span class="fc" id="L108">                                break;</span>
+                        case 6:
+<span class="fc" id="L110">                                indicies[0] = 1;</span>
+<span class="fc" id="L111">                                indicies[1] = 2;</span>
+<span class="fc" id="L112">                                break;</span>
+                        case 7:
+<span class="fc" id="L114">                                indicies[0] = 2;</span>
+<span class="fc" id="L115">                                indicies[1] = 0;</span>
+<span class="fc" id="L116">                                break;</span>
+                        case 8:
+<span class="fc" id="L118">                                indicies[0] = 2;</span>
+<span class="fc" id="L119">                                indicies[1] = 1;</span>
+<span class="fc" id="L120">                                break;</span>
+                        case 9:
+<span class="fc" id="L122">                                indicies[0] = 2;</span>
+<span class="fc" id="L123">                                indicies[1] = 2;</span>
+                                break;
+		}
+<span class="fc" id="L126">		return indicies;</span>
+	}
+	
+	// Changes current player, returns who was player before function call
+	private static String ChangePlayer()
+	{
+<span class="fc bfc" id="L132" title="All 2 branches covered.">		if (currPlayer == PLAYER_X)</span>
+		{
+<span class="fc" id="L134">			currPlayer = PLAYER_O;</span>
+<span class="fc" id="L135">			return PLAYER_X;</span>
+		}
+		else
+		{
+<span class="fc" id="L139">			currPlayer = PLAYER_X;</span>
+<span class="fc" id="L140">			return PLAYER_O;</span>
+		}
+	}
+
+        // Returns true if game has been won by incoming player
+        public static boolean GameWon(String player, int slot)
+        {
+<span class="fc" id="L147">		int[] indicies = To2D(slot);</span>
+<span class="fc" id="L148">		int currRow = indicies[0];</span>
+<span class="fc" id="L149">		int currCol = indicies[1];</span>
+		
+<span class="fc" id="L151">                boolean won = false;</span>
+<span class="pc bpc" id="L152" title="7 of 8 branches missed.">                if ((currRow == currCol) &amp;&amp; (player == gameBoard[0][0]) &amp;&amp; (player == gameBoard[1][1]) &amp;&amp; (player == gameBoard[2][2]))</span>
+                {
+<span class="nc" id="L154">                        won = true;                             	// Game won on the diogonal line</span>
+                }
+<span class="pc bpc" id="L156" title="2 of 8 branches missed.">                else if ((currRow + currCol == 2) &amp;&amp; (player == gameBoard[2][0]) &amp;&amp; (player == gameBoard[1][1]) &amp;&amp; (player == gameBoard[0][2]))</span>
+                {
+<span class="fc" id="L158">                        won = true;                             	// Game won on the reverse diagonal line</span>
+                }
+<span class="pc bpc" id="L160" title="2 of 6 branches missed.">                else if ((player == gameBoard[0][currCol]) &amp;&amp; (player == gameBoard[1][currCol]) &amp;&amp; (player == gameBoard[2][currCol]))</span>
+                {
+<span class="fc" id="L162">                        won = true;                             	// Game won on current column</span>
+                }
+<span class="pc bpc" id="L164" title="5 of 6 branches missed.">                else if ((player == gameBoard[currRow][0]) &amp;&amp; (player == gameBoard[currRow][1]) &amp;&amp; (player == gameBoard[currRow][2]))</span>
+                {
+<span class="nc" id="L166">                        won = true;                             	// Game won on current row</span>
+                }
+<span class="fc bfc" id="L168" title="All 2 branches covered.">		if (won)</span>
+		{
+<span class="fc" id="L170">			gameOver = true; 				// Game is over, dont insert more into gameBoard</span>
+		}
+<span class="fc" id="L172">                return won;</span>
+        }		
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.5.201505241946</span></div></body></html>
